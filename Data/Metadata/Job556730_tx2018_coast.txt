@@ -1,0 +1,39 @@
+The data you have requested through Digital Coast is now ready.
+This is Digital Coast request ID 374102, lidar job ID 556730.
+Download at: https://coast.noaa.gov/pickup/dav//374102/Job556730_tx2018_coast.zip
+File Size:              1002.22 MB
+
+Request:
+Projection: NAD83(NSRS2007) / UTM zone 15N; Format: LAS; Lat,lon bounding box: 29.59172203,-95.17940998 29.62288498,-95.13817692; Vertical Datum: NAVD88 height (m); Vertical Units: meters; Horizontal Datum: NAD83; Horizontal Units: meters; Classes used: Bridge Deck, Low Vegetation, Unclassified, Low Point (noise), Ignored Ground (near breakline), , Ground, High Noise, High Vegetation, , , Medium Vegetation, Building, Water, Culvert;
+
+Processing Notes: Data is really in NAD83(2011) but tagged files with NAD83(NSRS2007) for greater software compatibility.
+
+Supplemental information regarding the original data set may be found at https://coast.noaa.gov/htdata/lidar3_z/geoid12b/data/8898/supplemental/
+
+Breakline information for the original data set may be found at https://coast.noaa.gov/htdata/lidar3_z/geoid12b/data/8898/breaklines/
+
+
+Help us improve our services! Please reply to this email and let us know how you use this information. Thanks.
+Your request was large enough to be cut into tiles.
+The tiles are named either as quarter quads or a smaller variation. Quarter quad naming is YYXXXyx indicating the southeast corner location where
+        YY = integer latitude
+        XXX = integer longitude (positive west)
+        y = a letter (a-h) representing 1/8 degree of latitude (a = 0, h = 0.875).
+        x = a number (1-8) representing 1/8 degree of longitude
+Thus, quarter quad 42082b5 has its southeast corner at 42.125N 82.5W.
+
+The scheme for smaller tiles is YYXXX_yy_xx, where
+        yy = hundredths of a degree of latitude
+        xx = hundredths of a degree of longitude
+Thus, tile 42082_12_50 has its southeast corner at 42.12N 82.5W.
+
+The Zip file contains the following files:
+
+Lidar data file:                Job556730_29095_59_13.las
+Lidar data file:                Job556730_29095_59_15.las
+Lidar data file:                Job556730_29095_59_17.las
+Lidar data file:                Job556730_29095_61_13.las
+Lidar data file:                Job556730_29095_61_15.las
+Lidar data file:                Job556730_29095_61_17.las
+Metadata file:                  Job556730_tx2018_coast_metadata.xml
+Shapefile with tile index:  Job556730_tiles_index
