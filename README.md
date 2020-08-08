@@ -21,7 +21,7 @@ From 'scipy' we'll use functions to calculate the area of classified points.
 'skimage.measure' is a module we can use to decimate our pointcloud for better visualization performance.
 
 
-###### Area of Interest and Map Extent
+##### Area of Interest and Map Extent
 In order to download the LiDAR data from the [National Oceanic & Atmospheric Administration](https://coast.noaa.gov/dataviewer/#/lidar/search/), we need to determine the extent (bounding box) of the area of interest.  ipyleaflet, which uses an open source tile mapping service using a product called Leaflet, can be embedded in Jupyter to determine overall surface area for the area of interest.  
 
 ![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/map.JPG "Area of Interest")
@@ -35,7 +35,7 @@ We'll also do a little data exploration to determine the ASPRS standard version 
 ![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/all_classes_canted.JPG "All Feature Classes")
 
 
-###### Data Size & Shape
+##### Data Size & Shape
 Now that we've seen the metadata, we'll start to transform the raw Numpy extract from the .las in a more usable format.  We'll also take a look at the data's shape and size.
 
 laspy.py documentation recommends extracting out each dimension from the .las file first, stacking, and transposing.  This is due to the way that the LiDAR systems organize the XYZ points in an orientation that differs from Numpy's XYZ/3D array. 
