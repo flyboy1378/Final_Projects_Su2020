@@ -1,6 +1,5 @@
-# IS590 Programmming for Analytics - Summer - Final Project
-
-### Land Use Analysis Leveraging Numpy & Point Cloud Generated Scans
+# IS590 Programmming for Analytics - Summer 2020
+# Final Project - Land Use Analysis Leveraging Numpy & Point Cloud Generated Scans
 **Author - Jeremy Carnahan**
  
  
