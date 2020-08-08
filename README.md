@@ -1,5 +1,5 @@
-# IS590 Programmming for Analytics - Summer 2020
-# Final Project - Land Use Analysis Leveraging Numpy & Point Cloud Generated Scans
+# IS590 Programmming for Analytics - Summer 2020 - Final Project
+# Land Use Analysis Leveraging Numpy & Point Cloud Generated Scans
 **Author - Jeremy Carnahan**
  
  
@@ -23,7 +23,7 @@ From 'scipy' we'll use functions to calculate the area of classified points.
 ##### Area of Interest and Map Extent
 In order to download the LiDAR data from the [National Oceanic & Atmospheric Administration](https://coast.noaa.gov/dataviewer/#/lidar/search/), we need to determine the extent (bounding box) of the area of interest.  ipyleaflet, which uses an open source tile mapping service using a product called Leaflet, can be embedded in Jupyter to determine overall surface area for the area of interest.  
 
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/map.JPG "Area of Interest")
+<p align="center"> <img src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/map.JPG" </p>
 
 
 ##### Importing the Pointcloud .las file
@@ -31,7 +31,7 @@ Now with our area of interest defined, and LiDAR data downloaded from NOAA, we c
 
 We'll also do a little data exploration to determine the ASPRS standard version used and point metadata.
 
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/all_classes_canted.JPG "All Feature Classes")
+<p align="center"> <img src=https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/all_classes_canted.JPG </p>
 
 
 ##### Data Size & Shape
@@ -52,16 +52,17 @@ Our first step is to extract just the classification we are interested in, and w
 Here we start to run into some issues.  While so far the analysis of the pointclouds in numpy ndarrays has been smooth, with ample memory, as soon as we begin to try to visualize the data in Jupyter the system begins to stagger.  Additionally, the limited screen space limits any detailed view we may want to have to examine the pointcloud.
 
 Below was an attempt to visualize the data in Matplotlib.  
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/matplotlib_roads.JPG "Matplotlib plot of Roads class") 
+<p align="center"> <img src=https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/matplotlib_roads.JPG "Matplotlib plot of Roads class" </p>
 
 
 Ultimately I chose to use an external tool called 'CloudCompare' to view the results as you can see in the following 4 images.  Note: hover your mouse over the images to see what land use feature classes have been extracted. 
-
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/all_classes.JPG "All Feature Classes")  
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/ground.JPG "Ground") 
-
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/vegetation.JPG "Vegetation")  
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads.JPG "Roads")
+| <b>All Features<b> | <b>Ground<b> |
+|:-------------------------:|:-------------------------:|
+|<img width="500" height="500" alt="All Feature Classes" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/all_classes.JPG"> | <img width="500" height="500" alt="Ground" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/ground.JPG">  |
+| <b>Vegetation<b> | <b>Roads<b> |
+| <img width="500" height="500" alt="Vegetation" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/vegetation.JPG"> | <img width="500" height="500" alt="Roads" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads.JPG"> |
+<br>
+<br>
 
 ##### Pointcloud Decimation (Reduction)
 Numpy arrays make it fairly easy to perform a reduction in the granularity of the pointcloud. While we wouldn't want to do this if we want to maintain accuracy/precision, it may be a useful step for reducing the size for visualization. I used a skimage.measure method called 'block_reduce' that systematically reduces the size (and shape if desired) using an average of points every 100 points.  With this method I was able to reduce the roads pointcloud from 197,241 points to 1974 points.  
@@ -72,8 +73,12 @@ Numpy arrays make it fairly easy to perform a reduction in the granularity of th
 Now that we've extracted out just the land use points/elements that we want, we now need to perform our area calculations.  'scipy.spatial' has a method called ConvexHull, which we've seen previously in IS-590; however, this is a little different.  Even though the method is called ConvexHull, when given a 3D numpy array, the method actually performs what is called a Delaunay triangulation invoked from Qhull class parent.  Effectively it connects the points with edges to create small triangle facets, and then calculates the area of each small triangle.  This has the added benefit over a simple aerial overlay in that Delaunay will also include additional area as it considers the z-axis in addition to just the x & y axis.  But there is bad news...
 
 Unfortunately, it seems the scipy.spatial.ConvexHull method is unable to determine when it should not connect points that are not near to it.  A function that is used in pointcloud utilities (but not present in scipy) is to restrict the Delaunay to a preset threshold of "nearest neighbors", which results in **MANY** large faceted areas to be calculated and inflating our area results.  As we see in the ConvexHull results below, the area calculated is many times larger than our starting surface area.
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads_intensity.JPG "Road Pointcloud")
-![alt text](https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads_mesh.JPG "Roads with Delaunay Triangulation")
+
+| <b>Roads Pointcloud<b> | <b>Roads Delaunay Mesh<b> |
+|:-------------------------:|:-------------------------:|
+|<img width="500" height="500" alt="Roads Pointcloud" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads_intensity.JPG"> | <img width="500" height="500" alt="Roads Mesh" src="https://github.com/flyboy1378/Final_Projects_Su2020/blob/master/Data/Screenshots/roads_mesh.JPG">  |
+<br>
+<br>
 
 
 ## Learnings
@@ -82,8 +87,6 @@ Unfortunately, it seems the scipy.spatial.ConvexHull method is unable to determi
 * The the Numpy process performance is acceptable, even on large .las files up to 3GB, on a modern personal computing system.
 * Point cloud visualization in Matplotlib and Ipyvolume were not acceptable on a modern personal computer, and it is recommended that an alternative resource, such as CloudCompare, is used for pointcloud visualization. 
 * While not trivial, I believe there could be further steps taken to overcome the inaccuracies from the area calculations with more research into Delaunay triangulation that controls which facet edges are created based on a nearest neighbor threshold.
-
-
 
 
 
